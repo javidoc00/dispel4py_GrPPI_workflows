@@ -1,3 +1,3 @@
 {
-    "streamProducer" : [ { "input" : "/Users/javierfernandezmunoz/EPCC/dispel4py_workflows/tc_cross_correlation/Uniq-OpStationList-NetworkStation.txt" } ]
+    "streamProducer" : [ { "input" : "/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/dispel4py_workflows/tc_cross_correlation/Uniq-OpStationList-NetworkStation.txt" } ]
 }

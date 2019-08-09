@@ -258,9 +258,11 @@ void tc_cross_correlation (grppi::dynamic_execution & exec,
             return store_cross_elements (result, list2, root_dir, start_time);
         }
     ),
-    [&root_dir, &start_time, &list2] (auto result) {
-        return plot_cross_elements (result, list2, root_dir, start_time);
-     }
+    grppi::farm(4,
+        [&root_dir, &start_time, &list2] (auto result) {
+            return plot_cross_elements (result, list2, root_dir, start_time);
+        }
+    )  
   );
 }
 

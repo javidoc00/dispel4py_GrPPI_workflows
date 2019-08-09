@@ -13,12 +13,13 @@
 # limitations under the License.
 
 
-find_package (Eigen3 3.3 NO_MODULE)
+find_package (Eigen3)
 find_package (FFTW)
 find_package (MathGL2)
 
 
 if (EIGEN3_FOUND AND FFTW_FOUND AND MATHGL2_FOUND)
+
 
   include_directories(${EIGEN3_INCLUDE_DIR} ${FFTW_INCLUDE_DIRS} ${MATHGL2_INCLUDE_DIRS})
 

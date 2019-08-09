@@ -17,6 +17,7 @@ import traceback
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
+import os
 
 
 class StreamProducer(IterativePE):
@@ -192,10 +193,13 @@ class PreTaskPE(IterativePE):
            return None
 	  
 
-ROOT_DIR = './tc_cross_correlation/OUTPUT/'
+#ROOT_DIR = './tc_cross_correlation/OUTPUT/'
+ROOT_DIR = os.environ['OUTPUT_DIR']
 
-starttime='2019-07-21T06:00:00.000'
-endtime='2019-07-21T07:00:00.000'
+#starttime = '2019-07-21T06:00:00.000'
+starttime = os.environ['DISPEL4PY_XCORR_STARTTIME']
+#endtime = '2019-07-21T07:00:00.000'
+endtime = os.environ['DISPEL4PY_XCORR_ENDTIME']
 
 t_start = UTCDateTime(starttime)
 t_finish = UTCDateTime(endtime)

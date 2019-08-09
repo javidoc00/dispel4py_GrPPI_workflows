@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-find_package (Eigen3 3.3 NO_MODULE)
+find_package (Eigen3)
 find_package (MathGL2)
 
 if (EIGEN3_FOUND AND MATHGL2_FOUND)
