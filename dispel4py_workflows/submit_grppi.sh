@@ -14,8 +14,8 @@ set -x
   export DISPEL4PY_XCORR_STARTTIME=2019-07-21T06:00:00.000
   export DISPEL4PY_XCORR_ENDTIME=2019-07-21T08:00:00.000
 
-  #for NUM_REP in 1 2 4 6 8 16 32 64; do
-  for NUM_REP in 1 2; do
+  for NUM_REP in 1 2 4 6 8 16 32 64; do
+  #for NUM_REP in 1 2; do
 
     echo "BEGIN: NUM_REP = $NUM_REP"
     if [ "$LOAD_SAVE" == "SAVE" ]; then
