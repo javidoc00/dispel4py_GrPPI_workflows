@@ -1,17 +1,17 @@
 set -x
 
-  export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version_buena/"
-  #export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
+  #export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version_buena/"
+  export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
 
   export NUM_CORES=10
-  export LOAD_SAVE="LOAD"  # [SAVE, LOAD]
-  export OPERATION="XCROSS"  # [ALL, PREP, XCROSS]
+  export LOAD_SAVE="SAVE"  # [SAVE, LOAD]
+  export OPERATION="PREP"  # [ALL, PREP, XCROSS]
 
   export PYTHONPATH=$PYTHONPATH:.
   export GRPPI_DIR=${WORKFLOWS_DIR}/grppi_workflows/build/use_cases/tc_cross_correlation/
   export OUTPUT_DIR=${WORKFLOWS_DIR}/dispel4py_workflows/tc_cross_correlation/OUTPUT/
-  export DISPEL4PY_XCORR_STARTTIME=2019-07-21T06:00:00.000
-  export DISPEL4PY_XCORR_ENDTIME=2019-07-21T08:00:00.000
+  export DISPEL4PY_XCORR_STARTTIME=2019-07-21T00:00:00.000
+  export DISPEL4PY_XCORR_ENDTIME=2019-07-25T05:00:00.000
 
   if [ "$LOAD_SAVE" == "SAVE" ]; then
     rm -rf ./tc_cross_correlation/OUTPUT/SOURCE
