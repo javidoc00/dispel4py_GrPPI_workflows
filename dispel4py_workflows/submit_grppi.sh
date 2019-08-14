@@ -3,7 +3,7 @@ set -x
   #export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version_buena/"
   export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
 
-  export NUM_CORES=10
+  export NUM_CORES=36
   export NUM_REP=2
   export LOAD_SAVE="LOAD"  # [SAVE, LOAD]
   export OPERATION="ALL"  # [ALL, PREP, XCROSS]
