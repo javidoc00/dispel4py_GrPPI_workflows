@@ -36,6 +36,7 @@ class StreamProducer(IterativePE):
         lapse = int((self.t_finish - self.t_start) // 3600)
         for inc in range(0, lapse):
             t_now = t_start + (inc*3600)
+            t_then = t_start + ((inc+1)*3600)
             dir = ROOT_DIR + 'SOURCE/'+ t_now.__str__()
             if not os.path.exists(dir):
                 os.makedirs(dir)
@@ -56,7 +57,7 @@ class StreamProducer(IterativePE):
                             network, station_name = station.split()
                             stations_names.add((network, station_name))
                             # station_name = station.strip()
-                            stations_list.append((network, station_name, "", self.channel, t_now, self.t_finish))
+                            stations_list.append((network, station_name, "", self.channel, t_now, t_then))
                             i += 1
                         else:
                             if (LOAD_SAVE == 'SAVE'):

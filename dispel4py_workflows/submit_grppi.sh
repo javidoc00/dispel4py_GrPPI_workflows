@@ -1,11 +1,11 @@
 set -x
 
-  export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version buena"
-  #export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows"
+  export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version_buena/"
+  #export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
 
   export NUM_CORES=10
   export LOAD_SAVE="LOAD"  # [SAVE, LOAD]
-  export OPERATION="ALL"  # [ALL, PREP, XCROSS]
+  export OPERATION="XCROSS"  # [ALL, PREP, XCROSS]
 
   export PYTHONPATH=$PYTHONPATH:.
   export GRPPI_DIR=${WORKFLOWS_DIR}/grppi_workflows/build/use_cases/tc_cross_correlation/
@@ -27,6 +27,7 @@ set -x
   if [ "$OPERATION" != "PREP" ]; then
     rm -rf ./tc_cross_correlation/OUTPUT/XCORR
     mkdir ./tc_cross_correlation/OUTPUT/XCORR
-    dispel4py multi tc_cross_correlation/realtime_xcorr_mod.py -n $NUM_CORES
-    #taskset -c 0-$(($NUM_CORES-1)) ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME tbb
+    #dispel4py multi tc_cross_correlation/realtime_xcorr_mod.py -n $NUM_CORES
+    #taskset -c 0-$(($NUM_CORES-1)) ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME $DISPEL4PY_XCORR_ENDTIME tbb
+    ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME $DISPEL4PY_XCORR_ENDTIME tbb
   fi
