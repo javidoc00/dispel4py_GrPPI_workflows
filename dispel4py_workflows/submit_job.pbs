@@ -6,7 +6,7 @@
 #PBS -l select=1:ncpus=36
 # Parallel jobs should always specify exclusive node access
 #PBS -l place=scatter:excl
-#PBS -l walltime=00:20:00
+#PBS -l walltime=24:00:00
 
 # Replace [budget code] below with your project code (e.g. t01)
 #PBS -A dc010-jfmunoz
@@ -42,17 +42,19 @@ set -x
 
   export PYTHONPATH=$PYTHONPATH:.
 
-  export GRPPI_DIR=/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/grppi_workflows/build/use_cases/tc_cross_correlation/
-  export OUTPUT_DIR=/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/dispel4py_workflows/tc_cross_correlation/OUTPUT2/
+  /lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/dispel4py_workflows/submit_grppi.sh 2> error.txt > output.txt
 
-  export DISPEL4PY_XCORR_STARTTIME=2019-08-07T06:00:00.000
-  export DISPEL4PY_XCORR_ENDTIME=2019-08-07T07:00:00.000
+  #export GRPPI_DIR=/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/grppi_workflows/build/use_cases/tc_cross_correlation/
+  #export OUTPUT_DIR=/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/dispel4py_workflows/tc_cross_correlation/OUTPUT2/
 
-  rm -rf ${OUTPUT_DIR}/DATA
-  rm -rf ${OUTPUT_DIR}/XCORR
-  mkdir ${OUTPUT_DIR}/DATA
-  mkdir ${OUTPUT_DIR}/XCORR
+  #export DISPEL4PY_XCORR_STARTTIME=2019-08-07T06:00:00.000
+  #export DISPEL4PY_XCORR_ENDTIME=2019-08-07T07:00:00.000
 
-  dispel4py multi tc_cross_correlation/realtime_prep.py -f tc_cross_correlation/realtime_xcorr_input.jsn -n 36
+  #rm -rf ${OUTPUT_DIR}/DATA
+  #rm -rf ${OUTPUT_DIR}/XCORR
+  #mkdir ${OUTPUT_DIR}/DATA
+  #mkdir ${OUTPUT_DIR}/XCORR
+
+  #dispel4py multi tc_cross_correlation/realtime_prep.py -f tc_cross_correlation/realtime_xcorr_input.jsn -n 36
   #dispel4py multi tc_cross_correlation/realtime_xcorr_mod.py -n 36
-  taskset -c 0-35 ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME tbb
+  #taskset -c 0-35 ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME tbb
