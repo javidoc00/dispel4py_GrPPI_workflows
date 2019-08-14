@@ -1,7 +1,7 @@
 set -x
 
-  #export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version_buena/"
-  export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
+  export WORKFLOWS_DIR="/Users/javierfernandezmunoz/EPCC/version_buena/"
+  #export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
 
   export NUM_CORES=10
   export NUM_REP=2
@@ -27,7 +27,7 @@ set -x
       rm -rf ./tc_cross_correlation/OUTPUT/DATA
       mkdir  ./tc_cross_correlation/OUTPUT/DATA
       echo "BEGIN: prep-python NUM_REP = $NUM_REP"
-      dispel4py multi tc_cross_correlation/filed_prep.py -f tc_cross_correlation/realtime_xcorr_input.jsn -n $NUM_CORES
+      dispel4py multi tc_cross_correlation/filed_prep.py -f tc_cross_correlation/realtime_xcorr_input2.jsn -n $NUM_CORES
       echo "END: prep-python NUM_REP = $NUM_REP"
     fi
 

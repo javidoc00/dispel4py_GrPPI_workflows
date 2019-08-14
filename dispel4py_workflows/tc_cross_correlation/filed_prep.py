@@ -31,13 +31,15 @@ class StreamProducer(IterativePE):
         self.bulksize = 10
         
     def _process(self, filename):
-        #self.log('reading inputs from %s' % filename)
+      #self.log('reading inputs from %s' % filename)
         
-        lapse = int((self.t_finish - self.t_start) // 3600)
+      lapse = int((self.t_finish - self.t_start) // 3600)
+      for aux in range(0, NUM_REP):
         for inc in range(0, lapse):
             t_now = t_start + (inc*3600)
             t_then = t_start + ((inc+1)*3600)
             dir = ROOT_DIR + 'SOURCE/'+ t_now.__str__()
+            print (dir)
             if not os.path.exists(dir):
                 os.makedirs(dir)
             
@@ -255,6 +257,7 @@ LOAD_SAVE = os.environ['LOAD_SAVE']
 
 #ROOT_DIR = './tc_cross_correlation/OUTPUT/'
 ROOT_DIR = os.environ['OUTPUT_DIR']
+NUM_REP = int(os.environ['NUM_REP'])
 
 #starttime='2019-07-21T06:00:00.000'
 starttime = os.environ['DISPEL4PY_XCORR_STARTTIME']

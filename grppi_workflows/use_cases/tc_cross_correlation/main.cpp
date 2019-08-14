@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 // Standard library
+#include <chrono>
 #include <memory>
 #include <iostream>
 #include <string>
@@ -272,6 +273,7 @@ void tc_cross_correlation (grppi::dynamic_execution & exec,
                            const fs::path &root_dir,
                            const std::vector<fs::path> &hours_list) {
     
+  auto start = std::chrono::high_resolution_clock::now();
   grppi::pipeline(exec,
     [&root_dir, &hours_list] () ->
             ex::optional<std::tuple<unsigned long, std::shared_ptr<TStreamC>,
@@ -295,16 +297,20 @@ void tc_cross_correlation (grppi::dynamic_execution & exec,
         }
     )  
   );
+  auto stop = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast< std::chrono::microseconds>(stop - start);
+  std::cout << "ELAPSED TIME: " << duration.count() << " microseconds" << std::endl;
 }
 
 void print_message(const std::string & prog,
                    const std::string & msg) {
     
   std::cerr << msg << std::endl;
-  std::cerr << "Usage: " << prog << " root_dir start_time end_time mode" << std::endl;
+  std::cerr << "Usage: " << prog << " root_dir start_time end_time num_rep mode" << std::endl;
   std::cerr << "  root_dir: Root directory for input and output data files" << std::endl;
   std::cerr << "  start_time: begin time mark for the selected files" << std::endl;
   std::cerr << "  end_time: end time mark for the selected files" << std::endl;
+  std::cerr << "  num_rep: number of repetitions for the selected files" << std::endl;
   std::cerr << "  mode:" << std::endl;
   print_available_modes(std::cerr);
 }
@@ -314,7 +320,7 @@ int main(int argc, char **argv) {
     
   using namespace std;
 
-  if(argc < 5){
+  if(argc < 6){
     print_message(argv[0], "Invalid number of arguments.");
     return -1;
   }
@@ -343,19 +349,24 @@ int main(int argc, char **argv) {
     print_message(argv[0], "Invalid end time.");
     return -1;
   }
+  
+  unsigned long num_rep = std::stoi(argv[4]);
+
   t_start = mktime(&tm_start);
   t_end = mktime(&tm_end);
   lapse = (t_end - t_start) / 3600;
-  std::vector<fs::path> hours_list(lapse);
-  for (unsigned long i=0; i<lapse; i++) {
-    char aux_str[256];
-    std::time_t t_now = t_start + (i*3600);
-    auto tm_now = std::gmtime(&t_now);
-    strftime(aux_str, sizeof(aux_str), "%Y-%m-%dT%H:%M:%S.000000Z", tm_now);
-    hours_list[i]=fs::path(aux_str);
-    std::cout << hours_list[i] << std::endl;
+  std::vector<fs::path> hours_list(lapse*num_rep);
+  for (unsigned long i=0; i<num_rep; i++) {
+    for (unsigned long j=0; j<lapse; j++) {
+      char aux_str[256];
+      std::time_t t_now = t_start + (j*3600);
+      auto tm_now = std::gmtime(&t_now);
+      strftime(aux_str, sizeof(aux_str), "%Y-%m-%dT%H:%M:%S.000000Z", tm_now);
+      hours_list[(i*num_rep)+j]=fs::path(aux_str);
+      std::cout << "hours_list[" << (i*num_rep)+j << "]= " << hours_list[(i*num_rep)+j] << std::endl;
+    }
   }
-  if (!run_test(argv[4], tc_cross_correlation, root_dir, hours_list)) {
+  if (!run_test(argv[5], tc_cross_correlation, root_dir, hours_list)) {
     print_message(argv[0], "Invalid policy.");
     return -1;
   }

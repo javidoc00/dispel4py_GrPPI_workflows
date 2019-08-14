@@ -27,6 +27,8 @@ starttime = os.environ['DISPEL4PY_XCORR_STARTTIME']
 #endtime='2019-07-21T07:00:00.000'
 endtime = os.environ['DISPEL4PY_XCORR_ENDTIME']
 
+NUM_REP = int(os.environ['NUM_REP'])
+
 t_start = UTCDateTime(starttime)
 t_finish = UTCDateTime(endtime)
 
@@ -35,11 +37,13 @@ class Product(GenericPE):
         GenericPE.__init__(self)
         self._add_output('output', tuple_type=['number'])
     def process(self, inputs):
-        lapse = int((t_finish - t_start) // 3600)
+      lapse = int((t_finish - t_start) // 3600)
+      for aux in range(0, NUM_REP):
         for inc in range(0, lapse):
             store = []
             t_now = t_start + (inc*3600)
             dirs = [x for x in os.listdir(ROOT_DIR + 'DATA/'+ t_now.__str__()) if not x.startswith('.')]
+            print(ROOT_DIR + 'DATA/'+ t_now.__str__())
             for dir in dirs:
                 files = [x for x in os.listdir(ROOT_DIR+'/DATA/'+ t_now.__str__() +'/'+ dir) if not x.startswith('.')]
                 for f in files:
