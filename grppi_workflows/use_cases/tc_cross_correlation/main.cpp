@@ -360,10 +360,10 @@ int main(int argc, char **argv) {
     for (unsigned long j=0; j<lapse; j++) {
       char aux_str[256];
       std::time_t t_now = t_start + (j*3600);
-      auto tm_now = std::gmtime(&t_now);
+      auto tm_now = std::localtime(&t_now);
       strftime(aux_str, sizeof(aux_str), "%Y-%m-%dT%H:%M:%S.000000Z", tm_now);
-      hours_list[(i*num_rep)+j]=fs::path(aux_str);
-      std::cout << "hours_list[" << (i*num_rep)+j << "]= " << hours_list[(i*num_rep)+j] << std::endl;
+      hours_list[(i*lapse)+j]=fs::path(aux_str);
+      std::cout << "hours_list[" << (i*lapse)+j << "]= " << hours_list[(i*lapse)+j] << std::endl;
     }
   }
   if (!run_test(argv[5], tc_cross_correlation, root_dir, hours_list)) {

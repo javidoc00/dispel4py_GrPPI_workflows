@@ -6,7 +6,7 @@ set -x
   export NUM_CORES=36
   export NUM_REP=2
   export LOAD_SAVE="LOAD"  # [SAVE, LOAD]
-  export OPERATION="ALL"  # [ALL, PREP, XCROSS]
+  export OPERATION="XCROSS"  # [ALL, PREP, XCROSS]
 
   export PYTHONPATH=$PYTHONPATH:.
   export GRPPI_DIR=${WORKFLOWS_DIR}/grppi_workflows/build/use_cases/tc_cross_correlation/
@@ -15,7 +15,7 @@ set -x
   export DISPEL4PY_XCORR_ENDTIME=2019-07-21T08:00:00.000
 
   for NUM_REP in 1 2 4 6 8 16 32 64; do
-  #for NUM_REP in 1 2; do
+  #for NUM_REP in 1; do
 
     echo "BEGIN: NUM_REP = $NUM_REP"
     if [ "$LOAD_SAVE" == "SAVE" ]; then
@@ -38,7 +38,7 @@ set -x
       dispel4py multi tc_cross_correlation/realtime_xcorr_mod.py -n $NUM_CORES
       echo "END: xcross-python NUM_REP = $NUM_REP"
       echo "BEGIN: xcross-c++ NUM_REP = $NUM_REP"
-      taskset -c 0-$(($NUM_CORES-1)) ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME $DISPEL4PY_XCORR_ENDTIME $NUM_REP tbb
+      #taskset -c 0-$(($NUM_CORES-1)) ${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME $DISPEL4PY_XCORR_ENDTIME $NUM_REP tbb
       #${GRPPI_DIR}/tc_cross_correlation $OUTPUT_DIR $DISPEL4PY_XCORR_STARTTIME $DISPEL4PY_XCORR_ENDTIME $NUM_REP tbb
       echo "END: xcross-c++ NUM_REP = $NUM_REP"
     fi
