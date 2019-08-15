@@ -1,0 +1,24 @@
+set terminal png
+set output "graph.png"
+
+set title 'XCross performace results'          # plot title
+set xlabel 'Number of repetitions'             # x-axis label
+set ylabel 'Time (sec)'                              # y-axis label
+
+# labels
+#set label "boiling point" at 10, 212
+
+# key/legend
+set key top right
+set key box
+set key left bottom
+set key bmargin 
+
+set xtics (1, 2, 6, 4, 8, 16, 32)
+
+#set nokey     # no key
+
+plot 'times_grppi.dat' using 1:2 with linespoints title 'GrPPI', \
+     'times_grppi.dat' using 1:3 with linespoints title 'Dispel4PY'
+
+#pause 10
