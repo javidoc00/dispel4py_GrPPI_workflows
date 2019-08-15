@@ -4,7 +4,7 @@ set -x
   export WORKFLOWS_DIR="/lustre/home/dc010/jfmunoz/test/dispel4py_GrPPI_workflows/"
 
   export NUM_CORES=36
-  export NUM_REP=2
+  export NUM_REP=8
   export LOAD_SAVE="LOAD"  # [SAVE, LOAD]
   export OPERATION="XCROSS"  # [ALL, PREP, XCROSS]
 
@@ -14,8 +14,8 @@ set -x
   export DISPEL4PY_XCORR_STARTTIME=2019-07-21T06:00:00.000
   export DISPEL4PY_XCORR_ENDTIME=2019-07-21T08:00:00.000
 
-  for NUM_REP in 1 2 4 6 8 16 32 64; do
-  #for NUM_REP in 1; do
+  for NUM_CORES in 1 2 4 8 16 32 36; do
+  #for NUM_REP in 1 2 4 8 16 32; do
 
     echo "BEGIN: NUM_REP = $NUM_REP"
     if [ "$LOAD_SAVE" == "SAVE" ]; then
